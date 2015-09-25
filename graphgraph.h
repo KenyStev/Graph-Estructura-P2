@@ -32,9 +32,13 @@ private slots:
 
     void on_btnCreate_clicked();
 
+    void on_btnDijkstra_clicked();
+
 private:
     Ui::GraphGraph *ui;
-    QGraphicsScene *scene;
+    QGraphicsScene *scene,*scene_Dijkstra,*scene_Floyd,*scene_Kruskal,*scene_Prim;
+
+    void fillLists();
 };
 
 #endif // GRAPHGRAPH_H

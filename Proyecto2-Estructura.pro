@@ -17,7 +17,6 @@ SOURCES += main.cpp\
     graph.cpp \
     graphgraph.cpp \
     list.cpp \
-    nodo.cpp \
     queue.cpp \
     nodovisual.cpp \
     myitem.cpp \

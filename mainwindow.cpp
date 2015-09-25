@@ -16,11 +16,13 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_clicked()
 {
     GraphGraph *graph = new GraphGraph(true);
+    graph->setWindowTitle("Grafos Dirigidos");
     graph->show();
 }
 
 void MainWindow::on_pushButton_2_clicked()
 {
     GraphGraph *graph = new GraphGraph(false);
+    graph->setWindowTitle("Grafos No Dirigidos");
     graph->show();
 }

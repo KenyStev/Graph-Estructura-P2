@@ -10,15 +10,16 @@ public:
     ~Queue();
 
     void push(QString);
-    void push(Nodo*);
-    Nodo* pop();
-    Nodo* first();
+    void push(Nodo*,int);
+    Arista* pop();
+    Arista* first();
     void clear();
     void clean();
+    bool empty();
 
 private:
-    Nodo* root;
-    Nodo* end;
+    Arista* root;
+    Arista* end;
 
 
 };

@@ -9,7 +9,8 @@ class AristaVisual : public QGraphicsLineItem
 {
 public:
     NodoVisual *final;
-    AristaVisual(NodoVisual*);
+    QGraphicsTextItem *peso;
+    AristaVisual(NodoVisual*,int);
     virtual void setInicio(QPointF);
     virtual void setFinal(QPointF);
 };
@@ -25,7 +26,7 @@ class Arrow : public AristaVisual
 public:
     QLine l1,l2;
     QGraphicsLineItem *line1, *line2;
-    Arrow(NodoVisual*);
+    Arrow(NodoVisual*,int);
 
     virtual void setInicio(QPointF);
     virtual void setFinal(QPointF);
