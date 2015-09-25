@@ -12,9 +12,13 @@ public:
     Nodo *adyacente;
     Arista *aristas;
     QString valor;
+    bool intree;
+    int index;
 
     Nodo(QString v)
     {
+        index=-1;
+        intree = false;
         valor = v;
         aristas = NULL;
         adyacente = NULL;

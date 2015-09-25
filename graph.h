@@ -30,12 +30,15 @@ public:
 //    void Dijkstra(Nodo*);
 //    void Floyd(Nodo*);
     vector<QString> Dijkstra(Nodo*);
-    vector<string> Floyd(Nodo*);
+    vector<QString> Floyd(Nodo*);
     Graph* Prim(Nodo*);
     Graph* Kruskal(Nodo*);
 
     int size();
     int index(Nodo*);
+
+    void falsearNodos();
+    Nodo* getAt(int);
 
 private:
     List *checked;

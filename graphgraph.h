@@ -23,9 +23,13 @@ public:
     ~GraphGraph();
 
     Graph *g;
-    vector<NodoVisual*> nodos;
+    vector<NodoVisual*> *nodos,*nodos_prim,*nodos_kruskal;
 
     NodoVisual* search(Nodo*);
+    NodoVisual* search(vector<NodoVisual*>*&,Nodo*);
+
+    void setVisualArista(Graph*&,vector<NodoVisual*>*&,QGraphicsScene*&,Nodo*,Nodo*,int);
+    void setVisualNode(QGraphicsScene*&,NodoVisual*);
 
 private slots:
     void on_btnAdd_clicked();
@@ -33,6 +37,10 @@ private slots:
     void on_btnCreate_clicked();
 
     void on_btnDijkstra_clicked();
+
+    void on_btnPrim_clicked();
+
+    void on_btnFloyd_clicked();
 
 private:
     Ui::GraphGraph *ui;
