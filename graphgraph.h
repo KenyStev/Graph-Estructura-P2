@@ -42,6 +42,10 @@ private slots:
 
     void on_btnFloyd_clicked();
 
+    void on_btnKruskal_clicked();
+
+    void on_actionGrafo_Original_triggered();
+
 private:
     Ui::GraphGraph *ui;
     QGraphicsScene *scene,*scene_Dijkstra,*scene_Floyd,*scene_Kruskal,*scene_Prim;

@@ -26,3 +26,10 @@ void MainWindow::on_pushButton_2_clicked()
     graph->setWindowTitle("Grafos No Dirigidos");
     graph->show();
 }
+
+void MainWindow::on_btnSorts_clicked()
+{
+    Sorts *sorts = new Sorts();
+    sorts->setWindowTitle("Sorts");
+    sorts->show();
+}

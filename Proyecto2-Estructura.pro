@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     queue.cpp \
     nodovisual.cpp \
     myitem.cpp \
-    aristavisual.cpp
+    aristavisual.cpp \
+    sorts.cpp
 
 HEADERS  += mainwindow.h \
     arista.h \
@@ -31,7 +32,9 @@ HEADERS  += mainwindow.h \
     queue.h \
     nodovisual.h \
     myitem.h \
-    aristavisual.h
+    aristavisual.h \
+    sorts.h
 
 FORMS    += mainwindow.ui \
-    graphgraph.ui
+    graphgraph.ui \
+    sorts.ui

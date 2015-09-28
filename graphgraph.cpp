@@ -140,12 +140,14 @@ void GraphGraph::on_btnAdd_clicked()
 {
     QString t = ui->newNodo->text();
     Nodo*n = new Nodo(t);
-    g->addNodo(n);
 
-    NodoVisual *nuevo = new NodoVisual(n);
-    setVisualNode(scene,nuevo);
-    nodos->push_back(nuevo);
-    fillLists();
+    if(g->addNodo(n))
+    {
+        NodoVisual *nuevo = new NodoVisual(n);
+        setVisualNode(scene,nuevo);
+        nodos->push_back(nuevo);
+        fillLists();
+    }
 }
 
 void GraphGraph::on_btnCreate_clicked()
@@ -153,31 +155,8 @@ void GraphGraph::on_btnCreate_clicked()
     Nodo* ni = g->search(ui->fromNodoC->currentText());
     Nodo* nf = g->search(ui->toNodoC->currentText());
     int peso = ui->pesoArista->text().toInt();
-    setVisualArista(g,nodos,scene,ni,nf,peso);
-    g->addArista(ni,nf,peso);//mostrar mensaje
-//    NodoVisual *p1 = search(ni);//ui->fromNodo->text()));
-//    NodoVisual *p2 = search(nf);//toNodo->text()));
-//    int peso = ui->pesoArista->text().toInt();
-//    if(g->dirigido)
-//    {
-//        Arrow *ar = new Arrow(p2,peso);
-//        p1->aristas.push_back(ar);
-
-//        scene->addItem(ar);
-//        scene->addItem(ar->line1);
-//        scene->addItem(ar->line2);
-//        scene->addItem(ar->peso);
-
-//        g->addArista(ni,nf,peso);//mostrar mensaje
-//    }else{
-//        AristaVisual *ar = new AristaVisual(p2,peso);
-//        p1->aristas.push_back(ar);
-
-//        scene->addItem(ar);
-//        scene->addItem(ar->peso);
-
-//        g->addArista(ni,nf,peso);//mostrar mensaje
-//    }
+    if(g->addArista(ni,nf,peso))//mostrar mensaje
+        setVisualArista(g,nodos,scene,ni,nf,peso);
 }
 
 void GraphGraph::fillLists()
@@ -276,4 +255,44 @@ void GraphGraph::on_btnFloyd_clicked()
         scene_Floyd->addItem(item);
     }
     ui->gView->setScene(scene_Floyd);
+}
+
+void GraphGraph::on_btnKruskal_clicked()
+{
+    Graph*graph = g->Kruskal(NULL);
+    cout<<"Kruskal size: "<<graph->size()<<endl;
+
+    scene_Kruskal->clear();
+    nodos_kruskal->clear();
+
+    vector<QString> agregados;
+
+    Nodo*tmp = graph->actual;
+
+    while (tmp) {
+        NodoVisual*nuevo = new NodoVisual(tmp);
+        setVisualNode(scene_Kruskal,nuevo);
+        nodos_kruskal->push_back(nuevo);
+        agregados.push_back(nuevo->nodo->valor);
+        tmp = tmp->adyacente;
+    }
+
+    for (int i = 0; i < graph->aristasND.size(); ++i) {
+        NodoVisual*inicio = new NodoVisual((graph->aristasND)[i]->inicio);
+        NodoVisual*final = new NodoVisual((graph->aristasND)[i]->final);
+        int peso = (graph->aristasND)[i]->peso;
+
+        cout<<"agregando: "<<inicio->nodo->valor.toStdString()<<" Peso: "<<peso<<" Final: "<<final->nodo->valor.toStdString()<<endl;
+
+        if(inicio->nodo->valor!="-1")
+            setVisualArista(graph,nodos_kruskal,scene_Kruskal,inicio->nodo,final->nodo,peso);
+        cout<<"Total Nodos agregados: "<<nodos_kruskal->size()<<endl;
+    }
+    ui->gView->setScene(scene_Kruskal);
+    cout<<"Total Nodos agregad0s: "<<nodos_kruskal->size()<<endl;
+}
+
+void GraphGraph::on_actionGrafo_Original_triggered()
+{
+    ui->gView->setScene(scene);
 }

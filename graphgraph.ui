@@ -227,7 +227,7 @@
      </rect>
     </property>
     <property name="title">
-     <string>Camino mas corto</string>
+     <string>Costo Minimo</string>
     </property>
     <widget class="QPushButton" name="btnKruskal">
      <property name="geometry">
@@ -293,6 +293,7 @@
     <property name="title">
      <string>KenyStev</string>
     </property>
+    <addaction name="actionGrafo_Original"/>
    </widget>
    <addaction name="menuKenyStev"/>
   </widget>
@@ -305,6 +306,11 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionGrafo_Original">
+   <property name="text">
+    <string>Grafo Original</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

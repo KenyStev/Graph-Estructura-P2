@@ -402,13 +402,80 @@ Graph *Graph::Kruskal(Nodo *origen)
 {
     if(!dirigido)
     {
+        Graph*graph=new Graph(dirigido);
         int conections[size()];
+        bool intree[size()];
         for (int i = 0; i < size(); ++i) {
             conections[i] = -1;
+            intree[i]=false;
+            cout<<"conect: "<<conections[i]<<endl;
         }
 
+        Queue cola;
 
+        for (int i = 0; i < aristasND.size(); ++i) {
+            cola.push(aristasND[i],aristasND[i]->peso);
+        }
+        cout<<"<<<<Ordered queue>>>>"<<endl;
+        AristaND *tried = (AristaND*)cola.first();
+        while (tried) {
+            cout<<"from: "<<tried->inicio->index<<" peso: "<<tried->peso<<" to: "<<tried->final->index<<endl;
+            tried = (AristaND*)tried->adyacente;
+        }
+
+        while (!cola.empty()) {
+            AristaND *aris = (AristaND*)cola.pop();
+            Nodo*inicio = new Nodo(aris->inicio->valor);
+            inicio->index = aris->inicio->index;
+            Nodo*final = new Nodo(aris->final->valor);
+            final->index = aris->final->index;
+
+            cout<<"working with: ini: "<<inicio->valor.toStdString()<<" peso: "<<aris->peso<<" fin: "<<final->valor.toStdString()<<endl;
+
+            int ini = getFinIndex(conections,inicio);
+            int fin = getFinIndex(conections,final);
+            intree[inicio->index] = true;
+            intree[final->index] = true;
+
+            cout<<"index_ini: "<<inicio->index<<" index_fin: "<<final->index<<endl;
+            cout<<"ini: "<<ini<<" fin: "<<fin<<endl;
+            if(ini!= fin)
+            {
+                cout<<"ini != fin"<<endl;
+                if(!graph->addNodo(inicio))
+                    inicio = graph->search(inicio->valor);
+                if(!graph->addNodo(final))
+                    final = graph->search(final->valor);
+                graph->addArista(inicio,final,aris->peso);
+
+                if((-conections[ini])>(-conections[fin]))
+                {
+                    conections[ini]+=conections[fin];
+                    conections[fin]=ini;
+                }else{
+                    conections[fin]+=conections[ini];
+                    conections[ini]=fin;
+                }
+            }else{
+                cout<<"ya estan en el mismo arbol - forma ciclo"<<endl;
+            }
+            for (int i = 0; i < size(); ++i) {
+                cout<<i<<": "<<conections[i]<<endl;
+            }
+        }
+
+        for (int i = 0; i < size(); ++i) {
+            if(!intree[i])
+            {
+                Nodo*nodo = new Nodo(getAt(i)->valor);
+                nodo->index = getAt(i)->index;
+                graph->addNodo(nodo);
+            }
+        }
+//        cout<<"Kruskal size: "<<graph->size()<<endl;
+        return graph;
     }
+    return NULL;
 }
 
 int Graph::size()
@@ -421,12 +488,21 @@ int Graph::index(Nodo * n)
     Nodo*tmp = actual;
     int i=0;
     while (tmp) {
-        if(tmp==n)
+        if(tmp->valor==n->valor)
             return i;
         i++;
         tmp = tmp->adyacente;
     }
     return -1;
+}
+
+int Graph::getFinIndex(int *arr,Nodo *n)
+{
+    int index = n->index;
+    while (arr[index]>0) {
+        index = arr[index];
+    }
+    return index;
 }
 
 void Graph::falsearNodos()
@@ -450,11 +526,6 @@ Nodo *Graph::getAt(int index)
     }
     return new Nodo("-1");
 }
-
-//void Graph::Dijkstra(Nodo *inicio)
-//{
-
-//}
 
 AristaD *Graph::searchAristaD(Nodo *i, Nodo *f)
 {
