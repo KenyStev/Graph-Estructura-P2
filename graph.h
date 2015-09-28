@@ -36,6 +36,7 @@ public:
 
     int size();
     int index(Nodo*);
+    int getFinIndex(int*,Nodo*);
 
     void falsearNodos();
     Nodo* getAt(int);

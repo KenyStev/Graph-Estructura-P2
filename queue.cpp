@@ -26,6 +26,7 @@ void Queue::push(QString v)
 
 void Queue::push(Nodo* v,int distancia)
 {
+//    cout<<"distancia: "<<distancia<<endl;
     if(!root)
     {
         root = new Arista(distancia,v);
@@ -51,6 +52,37 @@ void Queue::push(Nodo* v,int distancia)
         tmp = tmp->adyacente;
     }
     Arista *t = new Arista(distancia,v);
+    t->adyacente = tmp->adyacente;
+    tmp->adyacente = t;
+}
+
+void Queue::push(Arista *nueva, int distancia)
+{
+    if(!root)
+    {
+        root = nueva;
+        root->adyacente = NULL;
+        end = root;
+        return;
+    }else if(root->peso > distancia)
+    {
+        Arista*tmp = root;
+        root = nueva;
+        root->adyacente = tmp;
+        return;
+    }else if(end->peso < distancia)
+    {
+        end->adyacente = nueva;
+        end = end->adyacente;
+        end->adyacente = NULL;
+        return;
+    }
+
+    Arista*tmp = root;
+    while (tmp->adyacente && tmp->adyacente->peso < distancia) {
+        tmp = tmp->adyacente;
+    }
+    Arista *t = nueva;
     t->adyacente = tmp->adyacente;
     tmp->adyacente = t;
 }

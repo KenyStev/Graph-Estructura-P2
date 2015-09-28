@@ -11,6 +11,7 @@ public:
 
     void push(QString);
     void push(Nodo*,int);
+    void push(Arista*,int);
     Arista* pop();
     Arista* first();
     void clear();
